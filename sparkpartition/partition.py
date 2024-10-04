@@ -18,8 +18,7 @@ def main():
 
     # Path to the CSV file on MinIO (S3)
     input_path = "s3a://mybucket/large_file_100MB.csv"
-    output_path = "s3a://mybucket/partition1/"
-
+    output_path = "s3a://mybucket/partition2/"
     # Read the CSV file
     df = spark.read.option("header", "true").csv(input_path)
 
@@ -27,17 +26,17 @@ def main():
     header_size = len(df.schema.json().encode("utf-8"))
 
     # Set the maximum size for each file
-    max_file_size_mb = 0.5
+    max_file_size_mb = 0.4
     max_file_size_bytes = max_file_size_mb * 1024 * 1024
 
     # Calculate the size of each row
-    row_sizes = df.rdd.map(lambda row: len(",".join([str(x) for x in row]).encode("utf-8"))).collect()
 
     # Calculate the total bytes of all rows
-    total_size_of_rows = sum(row_sizes)
+    total_size_of_rows = df.rdd.map(lambda row: len(",".join([str(x) for x in row]).encode("utf-8"))).sum()
+    num_rows = df.count()
 
     # Calculate the maximum number of rows per file
-    avg_row_size = total_size_of_rows / len(row_sizes)
+    avg_row_size = total_size_of_rows / num_rows
     rows_per_file = int((max_file_size_bytes - header_size) / avg_row_size)
 
     # Calculate the number of partitions

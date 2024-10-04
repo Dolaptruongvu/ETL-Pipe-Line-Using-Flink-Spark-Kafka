@@ -36,7 +36,6 @@ Ensure that your Docker environment is up and running by executing the following
 docker-compose up --build
 ```
 
-(
 ## Step 5: Generate and Upload Dataset
 
 1. Use the `generatedata.py` script located in the `data` folder to generate your large dataset.
