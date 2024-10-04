@@ -21,7 +21,7 @@ Download the necessary plugins for your SBT project. In the `plugins` folder, th
 
 ## Step 3: Configure and Build SBT Project
 
-1. After creating your SBT project, copy the `build.sbt` and `Main.scala` files provided into your project directory.
+1. After creating your SBT project, copy the provided `build.sbt` file into the root of your project directory, and the `Main.scala` file into the src/main/scala directory.
 2. Run the following command to build the project and generate the JAR file:
 
     ```bash
