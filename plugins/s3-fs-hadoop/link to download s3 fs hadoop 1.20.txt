@@ -1,0 +1,3 @@
+https://mvnrepository.com/artifact/org.apache.flink/flink-s3-fs-hadoop
+
+After download , please put jar file in this folder
